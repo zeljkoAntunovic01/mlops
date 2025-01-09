@@ -11,7 +11,7 @@ def visualize(model_checkpoint: str, figure_name: str = "embeddings.png") -> Non
     model: torch.nn.Module = Model()
     model.load_state_dict(torch.load(model_checkpoint))
     model.eval()
-    model.fc = torch.nn.Identity()
+    model = model[:-1]
 
     test_images = torch.load("data/processed/test_images.pt")
     test_target = torch.load("data/processed/test_target.pt")

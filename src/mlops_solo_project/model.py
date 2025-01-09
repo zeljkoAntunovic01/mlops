@@ -17,7 +17,7 @@ class Model(nn.Module):
             nn.MaxPool2d(2, 2),
             nn.Flatten(),
             nn.Dropout(0.5),
-            nn.Linear(128, 10)
+            nn.Linear(128, 10),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
