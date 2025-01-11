@@ -14,7 +14,9 @@ def evaluate(model_checkpoint: str) -> None:
     model = Model().to(DEVICE)
     model.load_state_dict(torch.load(model_checkpoint))
 
-    _, test_set = corrupt_mnist()
+    test_images = torch.load("data/processed/test_images.pt")
+    test_target = torch.load("data/processed/test_target.pt")
+    test_set = torch.utils.data.TensorDataset(test_images, test_target)
     test_dataloader = torch.utils.data.DataLoader(test_set, batch_size=32)
 
     model.eval()
@@ -27,5 +29,5 @@ def evaluate(model_checkpoint: str) -> None:
     print(f"Test accuracy: {correct / total}")
 
 
-def main():
+if __name__ == "__main__":
     typer.run(evaluate)

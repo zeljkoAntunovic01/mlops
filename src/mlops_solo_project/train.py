@@ -1,3 +1,4 @@
+import os
 import matplotlib.pyplot as plt
 import torch
 import typer
@@ -6,8 +7,10 @@ from mlops_solo_project.model import Model
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
+os.makedirs("models", exist_ok=True)
+os.makedirs("reports/figures", exist_ok=True)
 
-def train(lr: float = 1e-3, batch_size: int = 32, epochs: int = 10) -> None:
+def train(lr: float = 1e-3, batch_size: int = 32, epochs: int = 1) -> None:
     """Train a model on MNIST."""
     print("Training day and night")
     print(f"{lr=}, {batch_size=}, {epochs=}")
@@ -48,5 +51,5 @@ def train(lr: float = 1e-3, batch_size: int = 32, epochs: int = 10) -> None:
     fig.savefig("reports/figures/training_statistics.png")
 
 
-def main():
+if __name__ == "__main__":
     typer.run(train)
